@@ -7,9 +7,9 @@
 <body>
 
 <form action="#"
-      th:action="@{/process}"
+      th:action="@{/add}"
       th:object="${car}"
-      method="post">
+      method="post" enctype="multipart/form-data">
 
     <input type="hidden" th:field="*{id}" />
 
@@ -33,6 +33,8 @@
     MSRP :<input type="text" th:field="*{msrp}" />
     <span th:if="${#fields.hasErrors('msrp')}"
           th:errors="*{msrp}"></span><br/>
+
+    <input type="file" name="file"/>
 
     <input type="submit" value="Submit" />
 </form>

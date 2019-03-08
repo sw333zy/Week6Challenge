@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>List</title>
+<head th:replace="base :: headstuff">
 </head>
 <body>
-<a href="/addcategory">Add a Category</a><br/>
-<a href="/add">Add a Car</a><br/>
+<div class="container"><nav th:replace="base :: navbar"></nav>
+    <br/>
+    <span><a href="/addcategory">Add a new category? </a><a href="/add"> Add a new car?</a></span><br/>
+    <br/>
+    <div th:each="car : ${cars}">
+        <div class="row">
+            <div class="col-lg-6" th:replace="base :: car"></div>
+        </div>
+    </div>
 
-<table>
-    <tr>
-        <th>Manufacturer</th>
-        <th>Model</th>
-        <th>Year</th>
-        <th>MSRP</th>
-        <th>Category</th>
-    </tr>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.manufacturer}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.year}"></td>
-        <td th:text="${car.msrp}"></td>
-        <td th:text="${car.category.categoryName}"></td>
-        <td>
-            <a th:href="@{/detail/{id}(id=${car.id})}">Details</a> -
-        </td>
-    </tr>
-</table>
+    <nav th:replace="base :: foot"></nav>
+    <th:block th:replace="base :: jslinks"></th:block>
+</div>
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="www.thymeleaf.org">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8" />-->
+    <!--<title>List</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<a href="/addcategory">Add a Category</a><br/>-->
+<!--<a href="/add">Add a Car</a><br/>-->
+
+<!--<table>-->
+    <!--<tr>-->
+        <!--<th>Manufacturer</th>-->
+        <!--<th>Model</th>-->
+        <!--<th>Year</th>-->
+        <!--<th>MSRP</th>-->
+        <!--<th>Category</th>-->
+    <!--</tr>-->
+    <!--<tr th:each="car : ${cars}">-->
+        <!--<td th:text="${car.manufacturer}"></td>-->
+        <!--<td th:text="${car.model}"></td>-->
+        <!--<td th:text="${car.year}"></td>-->
+        <!--<td th:text="${car.msrp}"></td>-->
+        <!--<td th:text="${car.category.categoryName}"></td>-->
+        <!--<td>-->
+            <!--<a th:href="@{/detail/{id}(id=${car.id})}">Details</a> - -->
+        <!--</td>-->
+    <!--</tr>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->

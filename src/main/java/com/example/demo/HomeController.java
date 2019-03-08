@@ -1,15 +1,16 @@
 package com.example.demo;
 
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -18,6 +19,9 @@ public class HomeController {
 
     @Autowired
     CarRepository carRepository;
+
+    @Autowired
+    CloudinaryConfig cloudc;
 
     @RequestMapping("/")
     public String listCars(Model model) {
@@ -31,6 +35,25 @@ public class HomeController {
         model.addAttribute("car", new Car());
         model.addAttribute("categories", categoryRepository.findAll());
         return "carform";
+    }
+
+    @PostMapping("/add")
+    public String processMessage(@ModelAttribute Car car,
+                                 @RequestParam("file") MultipartFile file){
+        if (file.isEmpty()) {
+            carRepository.save(car);
+            return "redirect:/";
+        }
+        try{
+            Map uploadResult = cloudc.upload(file.getBytes(),
+                    ObjectUtils.asMap("resourcetype", "auto"));
+            car.setCarpic(uploadResult.get("url").toString());
+            carRepository.save(car);
+        }catch (IOException e){
+            e.printStackTrace();
+            return "redirect:/add";
+        }
+        return  "redirect:/";
     }
 
     @PostMapping("/process")
@@ -57,7 +80,7 @@ public class HomeController {
             return "categoryform";
         }
         categoryRepository.save(category);
-        return "redirect:/";
+        return "redirect:/add";
 
     }
 

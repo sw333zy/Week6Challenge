@@ -5,7 +5,7 @@
 <head th:fragment="headstuff">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Thoughter</title>
+    <title>Car Depot</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
@@ -23,9 +23,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="/add">Add Category <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/addcategory">Add Category <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link active" href="/">View Categories <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="/">Add Car <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/add">Add Car <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link active" href="/">View Cars <span class="sr-only">(current)</span></a>
         </div>
     </div>
@@ -33,22 +33,22 @@
 
 <!--END NAV BAR STUFF-->
 
-<!--MESSAGE STUFF-->
+<!--CAR STUFF-->
 
 <div th:fragment="car" class="card">
     <div class="card mb-3">
-        <img src="..." class="card-img-top" alt="...">
+        <img th:src="${car.carpic}" class="card-img-top" alt="car picture">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title" th:text="${car.manufacturer + ' ' + ' ' + car.model}"></h5>
+            <p class="card-text" th:text="${'Built in: ' + car.year + ' On sale for: ' + car.msrp}"></p>
+            <p class="card-text" th:text="${car.category.categoryName}"></p>
+            <span><a th:href="@{/update/{id}(id=${car.id})}">Update</a>
+                <a th:href="@{/detail/{id}(id=${car.id})}">Details</a>
+                <a th:href="@{/delete/{id}(id=${car.id})}">Delete</a>
+            </span>
         </div>
     </div>
-        <td><a th:href="@{/update/{id}(id=${message.id})}">Update</a> -
-            <a th:href="@{/detail/{id}(id=${message.id})}">Details</a> -
-            <a th:href="@{/delete/{id}(id=${message.id})}">Delete</a>
-        </td>
-    </div>
+
 </div>
 
 <!--END MESSAGE STUFF-->
@@ -60,7 +60,7 @@
     <div class="container">
         <hr class="m4-4">
         <footer class="footer">
-            <p>&copy; Thoughter 2019</p>
+            <p>&copy; Car Depot 2019</p>
         </footer>
     </div>
 </nav>
