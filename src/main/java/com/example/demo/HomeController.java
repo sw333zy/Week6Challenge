@@ -71,6 +71,8 @@ public class HomeController {
     public String categoryForm(Model model) {
         model.addAttribute("category", new Category());
         model.addAttribute("categories", categoryRepository.findAll());
+//        model.addAttribute("categories",categoryRepository.findByName(categoryName));
+
         return "categoryform";
     }
 
