@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="base :: headstuff">
 </head>
 <body>
+<div class="container"><nav th:replace="base :: navbar"></nav>
+    <br/>
+    <span><a href="/addcategory">Add a new category? </a><a href="/add"> Add a new car?</a></span><br/>
+    <br/>
+    <h1>Add a Vehicle Category</h1>
 
-<h1>Category</h1>
+    <form action="#"
+          th:action="@{/processcategory}"
+          th:object="${category}"
+          method="post">
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}" />
 
-<form action="#"
-      th:action="@{/processcategory}"
-      th:object="${category}"
-      method="post">
+            <input type="text" class="form-control" th:field="*{categoryName}" />
 
-    <input type="hidden" th:field="*{id}" />
+            <span th:if="${#fields.hasErrors('categoryName')}"
+                  th:errors="*{categoryName}"></span><br/>
 
-    Category :<input type="text" th:field="*{categoryName}" />
-
-    <span th:if="${#fields.hasErrors('categoryName')}"
-          th:errors="*{categoryName}"></span><br/>
-
-    <input type="submit" value="Submit" />
-
-</form>
-
+            <input type="submit" class="btn btn-primary mb-2" value="Submit" />
+        </div>
+    </form>
+    <nav th:replace="base :: foot"></nav>
+    <th:block th:replace="base :: jslinks"></th:block>
+</div>
 </body>
 </html>
