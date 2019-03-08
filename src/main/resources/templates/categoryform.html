@@ -24,6 +24,12 @@
             <input type="submit" class="btn btn-primary mb-2" value="Submit" />
         </div>
     </form>
+
+    <div class="row">
+        <div class="col-md-4" th:each="category : ${categories}">
+            <a th:text="${category.categoryName}"></a>
+        </div>
+    </div>
     <nav th:replace="base :: foot"></nav>
     <th:block th:replace="base :: jslinks"></th:block>
 </div>
