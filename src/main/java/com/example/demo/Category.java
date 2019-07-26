@@ -13,9 +13,12 @@ public class Category {
     @NotNull
     private String categoryName;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE,
+    //ONE CATEGORY CAN HAVE MANY CARS
+    @OneToMany(mappedBy = "category",
+            cascade = CascadeType.REMOVE,
             fetch = FetchType.EAGER)
-        public Set<Car> cars;
+    //ADD THOSE CARS TO LIST
+    public Set<Car> cars;
 
     public Category() {
     }
@@ -27,7 +30,6 @@ public class Category {
     public void setId(long id) {
         this.id = id;
     }
-
 
     public Set<Car> getCars() {
         return cars;

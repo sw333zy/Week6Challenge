@@ -3,12 +3,19 @@ package com.example.demo;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+//create our car class which will make a table of car with our given attributes due to the
+//entity annotation
+// CAR owns the relationship b/w car and category
+
 @Entity
 public class Car {
 
+
     @Id
+    //auto incriment our id numbers
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    //none of these can be null
     @NotNull
     private String manufacturer;
     @NotNull
@@ -20,14 +27,18 @@ public class Car {
 //    private String categoryName;
     private String carpic;
 
+    //there are many different types of cars to one CATEGORY
+    //Fetch type EAGAR means
     @ManyToOne(fetch = FetchType.EAGER)
+    //join the column on the CATEGORY ID which is UNIQUE
     @JoinColumn(name = "category_id")
     private Category category;
 
-
+    //Create our constructor
     public Car() {
     }
 
+    //GETTERS AND SETTERS
     public long getId() {
         return id;
     }
@@ -67,14 +78,6 @@ public class Car {
     public void setMsrp(double msrp) {
         this.msrp = msrp;
     }
-
-//    public String getCategoryName() {
-//        return categoryName;
-//    }
-//
-//    public void setCategoryName(String categoryName) {
-//        this.categoryName = categoryName;
-//    }
 
     public String getCarpic() {
         return carpic;
